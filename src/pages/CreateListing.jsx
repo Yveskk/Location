@@ -78,12 +78,12 @@ export default function CreateListing() {
     setLoading(true);
     if (+discountedPrice >= +regularPrice) {
       setLoading(false);
-      toast.error("Discounted price needs to be less than regular price");
+      toast.error("Le prix réduit doit être inférieur au prix normal");
       return;
     }
     if (images.length > 6) {
       setLoading(false);
-      toast.error("maximum 6 images are allowed");
+      toast.error("6 images maximum sont autorisées");
       return;
     }
     let geolocation = {};
@@ -101,7 +101,7 @@ export default function CreateListing() {
 
       if (location === undefined) {
         setLoading(false);
-        toast.error("please enter a correct address");
+        toast.error("veuillez entrer une adresse correcte");
         return;
       }
     } else {
@@ -125,10 +125,10 @@ export default function CreateListing() {
             console.log("Upload is " + progress + "% done");
             switch (snapshot.state) {
               case "paused":
-                console.log("Upload is paused");
+                console.log("Le téléchargement est suspendu");
                 break;
               case "running":
-                console.log("Upload is running");
+                console.log("Le téléchargement est en cours");
                 break;
             }
           },
@@ -151,7 +151,7 @@ export default function CreateListing() {
       [...images].map((image) => storeImage(image))
     ).catch((error) => {
       setLoading(false);
-      toast.error("Images not uploaded");
+      toast.error("Images non téléchargées");
       return;
     });
 
@@ -168,7 +168,7 @@ export default function CreateListing() {
     delete formDataCopy.longitude;
     const docRef = await addDoc(collection(db, "listings"), formDataCopy);
     setLoading(false);
-    toast.success("Listing created");
+    toast.success("Annonce créée");
     navigate(`/category/${formDataCopy.type}/${docRef.id}`);
   }
 
@@ -177,9 +177,9 @@ export default function CreateListing() {
   }
   return (
     <main className="max-w-md px-2 mx-auto">
-      <h1 className="text-3xl text-center mt-6 font-bold">Create a Listing</h1>
+      <h1 className="text-3xl text-center mt-6 font-bold">Créer une annonce</h1>
       <form onSubmit={onSubmit}>
-        <p className="text-lg mt-6 font-semibold">Sell / Rent</p>
+        <p className="text-lg mt-6 font-semibold">Vendre / Louer</p>
         <div className="flex">
           <button
             type="button"
@@ -192,7 +192,7 @@ export default function CreateListing() {
                 : "bg-slate-600 text-white"
             }`}
           >
-            sell
+            vendre
           </button>
           <button
             type="button"
@@ -205,7 +205,7 @@ export default function CreateListing() {
                 : "bg-slate-600 text-white"
             }`}
           >
-            rent
+            louer
           </button>
         </div>
         <p className="text-lg mt-6 font-semibold">Name</p>
@@ -222,7 +222,7 @@ export default function CreateListing() {
         />
         <div className="flex space-x-6 mb-6">
           <div>
-            <p className="text-lg font-semibold">Beds</p>
+            <p className="text-lg font-semibold">lits</p>
             <input
               type="number"
               id="bedrooms"
@@ -235,7 +235,7 @@ export default function CreateListing() {
             />
           </div>
           <div>
-            <p className="text-lg font-semibold">Baths</p>
+            <p className="text-lg font-semibold">Salle de Bain</p>
             <input
               type="number"
               id="bathrooms"
@@ -248,7 +248,7 @@ export default function CreateListing() {
             />
           </div>
         </div>
-        <p className="text-lg mt-6 font-semibold">Parking spot</p>
+        <p className="text-lg mt-6 font-semibold">Garage</p>
         <div className="flex">
           <button
             type="button"
@@ -259,7 +259,7 @@ export default function CreateListing() {
               !parking ? "bg-white text-black" : "bg-slate-600 text-white"
             }`}
           >
-            Yes
+            Oui
           </button>
           <button
             type="button"
@@ -270,7 +270,7 @@ export default function CreateListing() {
               parking ? "bg-white text-black" : "bg-slate-600 text-white"
             }`}
           >
-            no
+            Non
           </button>
         </div>
         <p className="text-lg mt-6 font-semibold">Furnished</p>
@@ -284,7 +284,7 @@ export default function CreateListing() {
               !furnished ? "bg-white text-black" : "bg-slate-600 text-white"
             }`}
           >
-            yes
+            Oui
           </button>
           <button
             type="button"
@@ -295,10 +295,10 @@ export default function CreateListing() {
               furnished ? "bg-white text-black" : "bg-slate-600 text-white"
             }`}
           >
-            no
+            Non
           </button>
         </div>
-        <p className="text-lg mt-6 font-semibold">Address</p>
+        <p className="text-lg mt-6 font-semibold">Addresse</p>
         <textarea
           type="text"
           id="address"
